@@ -20,7 +20,7 @@ public class BaseTest extends Assert {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
     }
 
     public static WebDriver getDriver() {
