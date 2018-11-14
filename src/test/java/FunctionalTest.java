@@ -11,16 +11,16 @@ import services.Service;
 public class FunctionalTest extends BaseTest{
     @Test
     public void testGooglePageTitleInBrowser() throws InterruptedException {
-        Service.searchPeopleByNickName("Minsk", driver);
+//        Service.searchPeopleByNickName("Minsk", driver);
 
     }
 
-    @AfterClass
-    public void tearDown() {
-        if(driver!=null) {
-            System.out.println("Closing chrome browser");
-            driver.quit();
-        }
-    }
+//    @AfterClass
+//    public void tearDown() {
+//        if(driver!=null) {
+//            System.out.println("Closing chrome browser");
+//            driver.quit();
+//        }
+//    }
 
 }
