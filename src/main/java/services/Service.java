@@ -29,11 +29,7 @@ public class Service {
     }
 
     public static void followPeople(int peopleQuantity, WebDriver driver, WebDriverWait wait) {
-        WebElement img = driver.findElement(By.xpath(".//img[@sizes='293px']"));
-
-        Actions actions = new Actions(driver);
-        actions.moveToElement(img).click().build().perform();
-
+        openFirstPhoto(driver);
         try {
             for(int i = 0; i < peopleQuantity; i++) {
 
@@ -56,10 +52,7 @@ public class Service {
     }
 
     public static void likePeople(int peopleQuantity, WebDriver driver, WebDriverWait wait) {
-        WebElement img = driver.findElement(By.xpath(".//img[@sizes='293px']"));
-
-        Actions actions = new Actions(driver);
-        actions.moveToElement(img).click().build().perform();
+        openFirstPhoto(driver);
 
         try {
             for(int i = 0; i < peopleQuantity; i++) {
@@ -87,10 +80,31 @@ public class Service {
     public static void searchPeopleByNickName(String nickName, WebDriver driver) {
         MainInstPage mainInstPage = new MainInstPage(driver);
         mainInstPage.sendTextInPeopleSearchInput(nickName);
-        String nameXpath = "//span[contains(text(), '%s')]";
-        nameXpath = String.format(nameXpath, nickName);
+        String nameXpath = ".//a[@href='/%s/']//span[contains(text(), '%s')]";
+        nameXpath = String.format(nameXpath, nickName, nickName);
         driver.findElement(By.xpath(nameXpath)).click();
     }
 
+    public static void simpleFollow(String nickName, WebDriver driver) {
+        searchPeopleByNickName(nickName, driver);
+        if(driver.findElement(By.xpath(Constants.XPATH_FOLLOW_BUTTON)).isDisplayed()) {
+            driver.findElement(By.xpath(Constants.XPATH_FOLLOW_BUTTON)).click();
+        }
+    }
+
+    public static void simpleLike(String nickName, WebDriver driver) {
+        searchPeopleByNickName(nickName, driver);
+        if(driver.findElement(By.xpath(Constants.XPATH_UNLIKE_BUTTON)).isDisplayed()) {
+            driver.findElement(By.xpath(Constants.XPATH_LIKE_BUTTON)).click();
+        }
+
+    }
+
+    public static void openFirstPhoto(WebDriver driver) {
+        WebElement img = driver.findElement(By.xpath(".//img[@sizes='293px']"));
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(img).click().build().perform();
+    }
 
 }
