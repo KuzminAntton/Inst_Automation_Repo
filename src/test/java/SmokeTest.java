@@ -26,6 +26,7 @@ public class SmokeTest extends BaseTest{
 
         Service.searchPeopleByNickName("vicky_aisha", driver);
 
+
         Service.likePeople(7,driver, wait);
 
 
