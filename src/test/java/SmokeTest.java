@@ -22,11 +22,13 @@ public class SmokeTest extends BaseTest{
 //        driver.manage().timeouts().pageLoadTimeout(100, TimeUnit.SECONDS);
         Service.logIn(Constants.LOGIN, Constants.PASS, driver);
 
-        Service.searchPeopleByNickName("Minsk", driver);
+//        Service.simpleFollow("vicky_aisha", driver);
 
-        Service.likePeople(300,driver, wait);
+        Service.searchPeopleByNickName("vicky_aisha", driver);
 
-        System.out.println();
+        Service.likePeople(7,driver, wait);
+
+
     }
 
     @AfterClass
