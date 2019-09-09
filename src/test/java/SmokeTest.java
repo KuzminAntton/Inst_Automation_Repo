@@ -24,11 +24,16 @@ public class SmokeTest extends BaseTest{
 
 //        Service.simpleFollow("vicky_aisha", driver);
 
-        Service.searchPeopleByNickName("vicky_aisha", driver);
+//        Service.searchPeopleByNickName("vicky_aisha", driver);
 
 
-        Service.likePeople(7,driver, wait);
+//        Service.likePeople(7,driver, wait);
 
+        Service.closeNotificationWindow(driver);
+
+        Service.moveToFollowingColumn(driver);
+
+        Service.makeFollowingColumnToZero(driver, wait, 500);
 
     }
 

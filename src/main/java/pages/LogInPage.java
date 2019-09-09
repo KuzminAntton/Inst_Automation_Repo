@@ -1,23 +1,23 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import web_element.ElementImpl;
 
 public class LogInPage extends BasePage{
 
     @FindBy(xpath = ".//a[contains(text(),'Log in')]")
-    public WebElement logInHref;
+    private ElementImpl logInHref;
 
-    @FindBy(xpath = ".//button[contains(text(),'Log in')]")
-    public WebElement logInButton;
+    @FindBy(xpath = ".//button[@type='submit']")
+    private ElementImpl logInButton;
 
 
     @FindBy(xpath = ".//input[@name='username']")
-    public WebElement loginTextInput;
+    private ElementImpl loginTextInput;
 
     @FindBy(xpath = ".//input[@name='password']")
-    public WebElement passwordTextInput;
+    private ElementImpl passwordTextInput;
 
 
     public LogInPage(WebDriver driver) {

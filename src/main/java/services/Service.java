@@ -1,21 +1,21 @@
 package services;
 
 import constants.Constants;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import logger.MainLogger;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LogInPage;
 import pages.MainInstPage;
+
 import java.util.concurrent.TimeUnit;
 
 public class Service {
 
     public static void logIn(String login, String pass, WebDriver driver) {
         LogInPage logInPage = new LogInPage(driver);
+        MainLogger.getLogger().info("Log in with nickname : " + login);
 
         logInPage.sendKeysIntoLoginField(login);
 
@@ -105,6 +105,38 @@ public class Service {
 
         Actions actions = new Actions(driver);
         actions.moveToElement(img).click().build().perform();
+    }
+
+    public static void makeFollowingColumnToZero(WebDriver driver, WebDriverWait wait, int unfollowQuantity) {
+        MainInstPage mainInstPage = new MainInstPage(driver);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        try {
+            for(int i = 0; i < unfollowQuantity; i++) {
+                if(mainInstPage.isFollowingButtonDisplayed()) {
+                    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Constants.XPATH_FOLLOWING_BUTTON_MAIN_PAGE)));
+                    mainInstPage.clickFollowing2Button();
+                    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Constants.XPATH_UNFOLLOW_BUTTON_MAIN_PAGE)));
+                    mainInstPage.clickUnfollowButton();
+                } else {
+                    js.executeScript("arguments[0].scrollIntoView();", mainInstPage.getFollowingButton());
+                }
+            }
+        }catch (TimeoutException e) {
+            makeFollowingColumnToZero(driver, wait, unfollowQuantity);
+        }
+
+    }
+
+    public static void moveToFollowingColumn(WebDriver driver) {
+        MainInstPage mainInstPage = new MainInstPage(driver);
+        mainInstPage.clickProfileButton();
+        mainInstPage.clickFollowingButton();
+    }
+
+    public static void closeNotificationWindow(WebDriver driver) {
+        MainInstPage mainInstPage = new MainInstPage(driver);
+        mainInstPage.clickOnNotNowNotificationButton(driver);
     }
 
 }
